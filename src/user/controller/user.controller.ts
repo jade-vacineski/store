@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from "@nestjs/common";
-import { UserRepository } from "./user.repository";
-import { CreateUserDto } from "./dto/createUser.dto";
-import { UserEntity } from "./domain/user.entity";
+import { UserRepository } from "../repository/user.repository";
+import { CreateUserDto } from "../dto/createUser.dto";
+import { UserEntity } from "../domain/user.entity";
 import { v4 as uuid } from 'uuid';
-import { UserListDto } from "./dto/userList.dto";
-import { UpdateUserDto } from "./dto/updateUser.dto";
+import { UserListDto } from "../dto/userList.dto";
+import { UpdateUserDto } from "../dto/updateUser.dto";
 
 
 @Controller('/users')

@@ -1,7 +1,7 @@
 // validation/email-is-unique.validator.ts
 
 import { registerDecorator, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface } from "class-validator";
-import { UserRepository } from "../user.repository";
+import { UserRepository } from "../repository/user.repository";
 
 @ValidatorConstraint({ async: true })
 export class EmailIsUniqueConstraint implements ValidatorConstraintInterface {

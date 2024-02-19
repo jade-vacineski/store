@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { UserEntity } from "./domain/user.entity";
+import { UserEntity } from "../domain/user.entity";
 import { error } from "console";
 
 @Injectable()
