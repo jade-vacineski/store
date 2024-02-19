@@ -1,31 +1,27 @@
-import { ValidationArguments, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface, isValidationOptions, registerDecorator } from "class-validator";
+// validation/email-is-unique.validator.ts
+
+import { registerDecorator, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface } from "class-validator";
 import { UserRepository } from "../user.repository";
-import { Injectable } from "@nestjs/common";
 
-@Injectable()
-@ValidatorConstraint({async:true})
-export class EmailIsUniqueValidator implements ValidatorConstraintInterface {
+@ValidatorConstraint({ async: true })
+export class EmailIsUniqueConstraint implements ValidatorConstraintInterface {
+    constructor(private userRepository: UserRepository) {}
 
-    constructor(private userRepository: UserRepository) {
-
-    }
-
-    async validate(value: any, validationArguments?: ValidationArguments): Promise<boolean> {
-        throw new Error("Method not implemented.");
-        const userWithEmailExists = await this.userRepository.ExistsWithEmail(value);
+    async validate(email: string): Promise<boolean> {
+        const userWithEmailExists = await this.userRepository.ExistsWithEmail(email);
         return !userWithEmailExists;
     }
 }
 
-export const EmailIsUnique = (validationOptions: ValidationOptions) =>{
-    return (object: Object, property: string) => {
+export function EmailIsUnique(validationOptions?: ValidationOptions) {
+    return function (object: Record<string, any>, propertyName: string) {
         registerDecorator({
-            target: object.constructor(),
-            propertyName: property,
+            name: "emailIsUnique",
+            target: object.constructor,
+            propertyName: propertyName,
             options: validationOptions,
             constraints: [],
-            validator: EmailIsUniqueValidator
-        })
-    }
+            validator: EmailIsUniqueConstraint,
+        });
+    };
 }
-
