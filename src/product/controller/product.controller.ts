@@ -32,7 +32,7 @@ export class ProductController {
     product.characteristics = dataProduct.characteristics;
     product.image = dataProduct.image;
 
-    const productRegistered = this.productRepository.save(product);
+    const productRegistered = await this.productRepository.save(product);
     return productRegistered;
   }
 
